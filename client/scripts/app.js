@@ -37,18 +37,22 @@ var app = {
 
   send: function(message) {
     app.startSpinner();
+    console.log('sending ', message);
 
     // POST the message to the server
     $.ajax({
       url: app.server,
       type: 'POST',
-      data: message,
+      data: JSON.stringify(message),
+      contentType: "application/json; charset=utf-8",
       success: function (data) {
         // Clear messages input
         app.$message.val('');
+        
 
         // Trigger a fetch to update the messages, pass true to animate
-        app.fetch();
+        app.fetch(true);
+        app.renderMessages(data.results);
       },
       error: function (error) {
         console.error('chatterbox: Failed to send message', error);
@@ -61,7 +65,7 @@ var app = {
     $.ajax({
       url: app.server,
       type: 'GET',
-      contentType: 'application/json',
+      // contentType: 'application/json',
       success: function(data) { 
         console.log('success', data)
         // Don't bother if we have nothing to work with
