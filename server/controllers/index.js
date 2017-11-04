@@ -11,9 +11,15 @@ module.exports = {
     get: function (req, res) {
       console.log('##############333333', 'get recived');
       models.messages.get(function(data) {
+
         res.status(200);
         res.set('Content-Type', 'application/json');
-        res.send(JSON.stringify({results: JSON.parse(data)}));
+console.log(data.length, 'length', data)
+        if (data !== '[]') {
+          res.send(JSON.stringify({results: JSON.parse(data)}));
+        } else {
+          res.send('"no messages"');
+        }
       });
     
     }, // a function which handles a get request for all messages
