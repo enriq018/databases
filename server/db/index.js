@@ -6,7 +6,7 @@ var mysql = require('mysql');
 
 
 module.exports.dbConnection = mysql.createConnection({
-  user: 'student',
-  password: 'student',
+  user: 'root',
+  password: 'plantlife',
   database: 'chat'
 });
