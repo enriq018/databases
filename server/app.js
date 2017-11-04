@@ -9,7 +9,7 @@ var parser = require('body-parser');
 var router = require('./routes.js');
 
 // Run the Database
-console.log('gets here', db)
+// console.log('gets here', db)
 db.dbConnection.connect();
 
 var app = express();
@@ -21,6 +21,11 @@ app.set('port', 3000);
 // Logging and parsing
 app.use(morgan('dev'));
 app.use(parser.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Set up our routes
 app.use('/classes', router);

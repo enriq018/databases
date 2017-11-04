@@ -10,18 +10,16 @@ module.exports = {
         callback(JSON.stringify(result));
       });
     }, // a function which produces all the messages
-    post: function () {
-    var obj =
-
-    db.dbConnection.query(`INSERT INTO messages(message, username, roomname)
-      VALUES (${obj.text}, ${obj.username}, ${obj.roomname}`, function (err, result, fields) {
+    post: function (obj, callback) {
+      var queryString = `INSERT INTO messages(text, username, roomname)
+        VALUES ('${obj.text}', '${obj.username}', '${obj.roomname}')`;
+      db.dbConnection.query(queryString, function (err, result, fields) {
         if (err) {
           console.log(err);
         }
         callback();
       });
-
-      } // a function which can be used to insert a message into the database
+    } // a function which can be used to insert a message into the database
   },
 
   users: {

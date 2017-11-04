@@ -10,3 +10,4 @@ module.exports.dbConnection = mysql.createConnection({
   password: 'plantlife',
   database: 'chat'
 });
+// module.exports.dbConnection.connect();
