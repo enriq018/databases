@@ -44,7 +44,7 @@ CREATE TABLE `messages` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `text` VARCHAR(100) NULL DEFAULT NULL,
   `roomname` VARCHAR(20) NULL DEFAULT 'lobby',
-  `username` VARCHAR(40) NOT NULL,
+  `id_user` INTEGER NOT NULL,
   `timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   -- `datetime` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -70,28 +70,32 @@ CREATE TABLE `messages` (
 -- 
 -- ---
 
--- DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `users`;
     
--- CREATE TABLE `users` (
---   `id` INTEGER NOT NULL AUTO_INCREMENT,
---   `username` VARCHAR(20) NULL DEFAULT NULL,
---   PRIMARY KEY (`id`)
--- );
+CREATE TABLE `users` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+
+
 
 -- ---
 -- Foreign Keys 
 -- ---
 
 -- ALTER TABLE `messages` ADD FOREIGN KEY (id_rooms) REFERENCES `rooms` (`id`);
--- ALTER TABLE `messages` ADD FOREIGN KEY (id_user) REFERENCES `users` (`id`);
+-- UNCOMMENT BELOW
+ALTER TABLE `messages` ADD FOREIGN KEY (id_user) REFERENCES `users` (`id`);
 
 -- ---
 -- Table Properties
 -- ---
 
 -- ALTER TABLE `rooms` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `messages` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+ALTER TABLE `messages` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data
@@ -167,7 +171,15 @@ CREATE TABLE `messages` (
 --   INNER JOIN users u
 --     ON u.id = m.id_user;
 
+select * from messages
+    inner join users
+     on users.id = messages.id_user;
+
 -- INSERT INTO messages(username, text, roomname)
 --   VALUES ('javi', 'write here', 'white house');
+INSERT INTO users(username)
+  VALUES ('Blue man');
 
+INSERT INTO messages (text, roomname, id_user)
+  VALUES ('I just blue myself', 'somewhere', 1)
 

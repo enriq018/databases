@@ -9,12 +9,12 @@ module.exports = {
     },
 
     get: function (req, res) {
-      console.log('##############333333', 'get recived');
+      // console.log('##############333333', 'get recived');
       models.messages.get(function(data) {
 
         res.status(200);
         res.set('Content-Type', 'application/json');
-console.log(data.length, 'length', data)
+// console.log(data.length, 'length', data)
         if (data !== '[]') {
           res.send(JSON.stringify({results: JSON.parse(data)}));
         } else {
