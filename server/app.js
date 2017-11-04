@@ -8,6 +8,10 @@ var parser = require('body-parser');
 // Router
 var router = require('./routes.js');
 
+// Run the Database
+console.log('gets here', db)
+db.dbConnection.connect();
+
 var app = express();
 module.exports.app = app;
 
